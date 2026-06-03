@@ -1,0 +1,59 @@
+name: Deploy docs
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Daily 04:00 UTC — picks up any marketplace-docs changes pushed to flyokai/flyokai.
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - run: pip install -r requirements.txt
+
+      - name: Clone flyokai/flyokai (source of truth)
+        env:
+          GH_TOKEN: ${{ secrets.FLYOKAI_DOCS_TOKEN }}
+        run: |
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "::error::FLYOKAI_DOCS_TOKEN secret is not set." \
+                 "Generate a fine-grained PAT with read access to flyokai/flyokai" \
+                 "and add it as a repo secret. See README.md for setup steps."
+            exit 1
+          fi
+          git clone --depth=1 --branch=main \
+            "https://x-access-token:${GH_TOKEN}@github.com/flyokai/flyokai.git" \
+            /tmp/flyokai-source
+          echo "Source SHA: $(git -C /tmp/flyokai-source rev-parse --short HEAD)"
+
+      - name: Sync marketplace docs into mkdocs source
+        env:
+          FLYOKAI_SOURCE_DIR: /tmp/flyokai-source
+        run: bash bin/sync-docs.sh
+
+      - name: Configure git for gh-deploy
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - run: mkdocs gh-deploy --force

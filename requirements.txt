@@ -1,0 +1,4 @@
+mkdocs-material>=9.5,<10
+# Pygments 2.19 regressed the pymdownx HTML formatter (html.escape(None)) for the
+# highlight config this site uses; pin below it until that's resolved upstream.
+pygments<2.19
