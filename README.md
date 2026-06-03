@@ -1,6 +1,6 @@
 # Flyokai Marketplace documentation
 
-Source for **marketplace-docs.flyokai.com**, built with
+Source for **marketplace.flyokai.com**, built with
 [MkDocs Material](https://squidfunk.github.io/mkdocs-material/). Documents the
 **Flyokai Marketplace** plugin suite for Shopware 6 (Base + Remote + Bulk).
 
@@ -13,7 +13,7 @@ the next sync overwrites it. This is the same pattern
 ## How it works
 
 ```
-flyokai/flyokai (private)              flyokai/marketplace-docs (this repo, public)   gh-pages → marketplace-docs.flyokai.com
+flyokai/flyokai (private)              flyokai/marketplace-docs (this repo, public)   gh-pages → marketplace.flyokai.com
 └─ marketplace-docs/                   ├─ mkdocs.yml                                   ├─ index.html
    └─ docs/                            ├─ requirements.txt                             ├─ getting-started/
       ├─ index.md                      ├─ bin/sync-docs.sh                             ├─ architecture/
@@ -91,7 +91,7 @@ can delete it for hygiene at that point.
 
 > **First deploy:** `mkdocs gh-deploy` pushes a `gh-pages` branch. After the
 > first successful run, set *Settings → Pages → Source* to the `gh-pages`
-> branch, and point the `marketplace-docs.flyokai.com` DNS `CNAME` at
+> branch, and point the `marketplace.flyokai.com` DNS `CNAME` at
 > `<owner>.github.io`. The `CNAME` file is written by `bin/sync-docs.sh`
 > (override with the `SITE_DOMAIN` env var).
 

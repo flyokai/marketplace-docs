@@ -18,7 +18,7 @@ SRC="${FLYOKAI_SOURCE_DIR:?Set FLYOKAI_SOURCE_DIR to a flyokai/flyokai checkout 
 SRC_DOCS="$SRC/marketplace-docs/docs"
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DEST="$REPO_ROOT/docs"
-SITE_DOMAIN="${SITE_DOMAIN:-marketplace-docs.flyokai.com}"
+SITE_DOMAIN="${SITE_DOMAIN:-marketplace.flyokai.com}"
 
 [[ -d "$SRC_DOCS" ]]          || { echo "Error: $SRC_DOCS not found" >&2; exit 1; }
 [[ -f "$SRC_DOCS/index.md" ]] || { echo "Error: $SRC_DOCS/index.md not found" >&2; exit 1; }
