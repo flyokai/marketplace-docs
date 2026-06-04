@@ -40,6 +40,11 @@ for f in "$SRC_DOCS"/*.md; do
     rewrite_links < "$f" > "$DEST/$(basename "$f")"
 done
 
+# Brand assets (logo, favicon, CSS) — copied verbatim; mkdocs serves them as-is.
+if [[ -d "$SRC_DOCS/assets" ]]; then
+    cp -R "$SRC_DOCS/assets" "$DEST/assets"
+fi
+
 # Custom domain for GitHub Pages (written into the published gh-pages branch).
 echo "$SITE_DOMAIN" > "$DEST/CNAME"
 
