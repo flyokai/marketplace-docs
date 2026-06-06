@@ -1,0 +1,36 @@
+/* Flyokai brand theme for MkDocs Material.
+ * Overrides Material's "custom" colour slot with the Flyokai emerald palette.
+ * Activated via mkdocs.yml: theme.palette.*.primary = custom, accent = custom,
+ * and extra_css: [assets/flyokai.css].
+ *
+ * Palette:
+ *   emerald-700 #047857   emerald-600 #059669 (primary)
+ *   emerald-500 #10B981 (accent)   emerald-400 #34D399 (light / dark-mode links)
+ */
+
+[data-md-color-primary="custom"] {
+  --md-primary-fg-color:        #059669;
+  --md-primary-fg-color--light: #34d399;
+  --md-primary-fg-color--dark:  #047857;
+  --md-primary-bg-color:        #ffffff;
+  --md-primary-bg-color--light: #ffffffb3;
+}
+
+[data-md-color-accent="custom"] {
+  --md-accent-fg-color:              #10b981;
+  --md-accent-fg-color--transparent: #10b9811a;
+  --md-accent-bg-color:              #ffffff;
+  --md-accent-bg-color--light:       #ffffffb3;
+}
+
+/* Brighter link colour on the dark (slate) scheme for contrast. */
+[data-md-color-scheme="slate"] {
+  --md-typeset-a-color: #34d399;
+}
+
+/* Keep the header logo crisp and consistently sized. */
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  height: 1.5rem;
+  width: auto;
+}
